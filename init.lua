@@ -13,11 +13,15 @@ if not vim.loop.fs_stat(lazypath) then
   })
 end
 vim.opt.rtp:prepend(lazypath)
-
 require("core.options")
 require("core.keymaps")
 require("core.plugins")
 require("core.plugin_config")
-require("core.plugin_config.copilot")  -- Load Copilot config after plugins
+require("core.plugin_config.copilot") -- Load Copilot config after plugins
 
-
+vim.api.nvim_create_autocmd("BufWritePre", {
+  pattern = "*",
+  callback = function(args)
+    require("conform").format({ bufnr = args.buf })
+  end,
+})
