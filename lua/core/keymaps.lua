@@ -7,3 +7,6 @@ vim.keymap.set('n', '<leader>h', ':nohlsearch<CR>')
 vim.api.nvim_set_keymap('n', '<C-a>', 'ggVG', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('v', '<C-c>', '"+y', { noremap = true, silent = true })
 
+-- Keybinding for Telescope
+vim.api.nvim_set_keymap('n', '<C-f>', ':Telescope find_files<CR>', { noremap = true, silent = true })
+
