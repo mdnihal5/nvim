@@ -1,70 +1,54 @@
 require("lazy").setup({
-  -- Theme and UI
-  { "catppuccin/nvim",        name = "catppuccin", priority = 1000 },
-  "ellisonleao/gruvbox.nvim",
-  "dracula/vim",
-  { "tanvirtin/monokai.nvim", name = "monokai" }, -- Correctly add Monokai Pro
-  "nvim-lualine/lualine.nvim",                    -- Statusline
-  "nvim-tree/nvim-tree.lua",                      -- File explorer
-  "nvim-tree/nvim-web-devicons",                  -- File icons
+  -- UI and Themes
+  { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
+  "ellisonleao/gruvbox.nvim", "dracula/vim", { "tanvirtin/monokai.nvim", name = "monokai" },
+  "nvim-lualine/lualine.nvim", "nvim-tree/nvim-tree.lua", "nvim-tree/nvim-web-devicons",
 
   -- Syntax and Treesitter
-  "nvim-treesitter/nvim-treesitter", -- Treesitter for syntax highlighting
+  "nvim-treesitter/nvim-treesitter",  -- Syntax highlighting
 
   -- Git and Version Control
-  "lewis6991/gitsigns.nvim", -- Git signs
-  "tpope/vim-fugitive",      -- Git integration
+  "lewis6991/gitsigns.nvim", "tpope/vim-fugitive",  -- Git integration
 
-  -- General Utilities
-  "tpope/vim-commentary",           -- Commenting
-  "tpope/vim-surround",             -- Surround text with quotes/brackets/etc.
-  "mattn/emmet-vim",                -- Emmet for fast HTML/CSS
-  "preservim/vimux",                -- Integration with tmux
-  "christoomey/vim-tmux-navigator", -- Easy navigation in tmux
-  "vim-test/vim-test",              -- Test runner for different languages
-  "stevearc/oil.nvim",              -- File manager
+  -- Utilities
+  "tpope/vim-commentary", "tpope/vim-surround", "mattn/emmet-vim",
+  "preservim/vimux", "christoomey/vim-tmux-navigator", "vim-test/vim-test", "stevearc/oil.nvim",
 
-  -- LSP and Mason setup
-  "williamboman/mason.nvim",           -- LSP/DAP/Linters installer
-  "williamboman/mason-lspconfig.nvim", -- Bridges mason and lspconfig
-  "neovim/nvim-lspconfig",             -- LSP configuration
+  -- LSP, Mason & Completion
+  "williamboman/mason.nvim", "williamboman/mason-lspconfig.nvim", "neovim/nvim-lspconfig",
+  "hrsh7th/nvim-cmp", "hrsh7th/cmp-nvim-lsp", "L3MON4D3/LuaSnip", "saadparwaiz1/cmp_luasnip", "rafamadriz/friendly-snippets",
 
-  -- Completion
-  "hrsh7th/nvim-cmp",             -- Completion engine
-  "hrsh7th/cmp-nvim-lsp",         -- LSP source for nvim-cmp
-  "L3MON4D3/LuaSnip",             -- Snippet engine
-  "saadparwaiz1/cmp_luasnip",     -- LuaSnip completion source
-  "rafamadriz/friendly-snippets", -- Predefined snippets
-
-  -- Copilot
-  "github/copilot.vim", -- GitHub Copilot integration
-
-  -- Markdown and API preview
-  {
-    "iamcco/markdown-preview.nvim",
-    build = "cd app && npm install", -- Run installation script after cloning
-  },
-  {
-    "vinnymeller/swagger-preview.nvim",
-    build = "npm install -g swagger-ui-watcher", -- Global npm installation
-  },
+  -- Copilot & Preview
+  "github/copilot.vim", { "iamcco/markdown-preview.nvim", build = "cd app && npm install" },
+  { "vinnymeller/swagger-preview.nvim", build = "npm install -g swagger-ui-watcher" },
 
   -- Telescope (fuzzy finder)
+  { "nvim-telescope/telescope.nvim", tag = "0.1.4", dependencies = { "nvim-lua/plenary.nvim" } },
+
+  -- Formatter (using Neoformat)
   {
-    "nvim-telescope/telescope.nvim",
-    tag = "0.1.4",
-    dependencies = { "nvim-lua/plenary.nvim" }
+    "sbdchd/neoformat", 
+    config = function()
+      vim.g.neoformat_enabled_python = { "black" }
+      vim.g.neoformat_enabled_javascript = { "prettier" }
+      vim.g.neoformat_enabled_typescript = { "prettier" }
+      vim.g.neoformat_enabled_html = { "prettier" }
+      vim.g.neoformat_enabled_css = { "prettier" }
+      vim.g.neoformat_enabled_json = { "prettier" }
+    end
   },
+
+  -- Null-ls setup for Prettier (optional)
   {
-    'stevearc/conform.nvim',
-    opts = {
-      formatters_by_ft = {
-        javascript = { "prettierd", "prettier", stop_after_first = true },
-      },
-    },
+    "jose-elias-alvarez/null-ls.nvim",
+    config = function()
+      require("null-ls").setup({
+        sources = { require("null-ls").builtins.formatting.prettier }
+      })
+    end
   },
-  {
-    'folke/noice.nvim',
-    opts = {},
-  },
+
+  -- Noice plugin
+  { "folke/noice.nvim", opts = {} },
 })
+
