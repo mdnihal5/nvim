@@ -19,7 +19,6 @@ require("lazy").setup({
   "hrsh7th/nvim-cmp", "hrsh7th/cmp-nvim-lsp", "L3MON4D3/LuaSnip", "saadparwaiz1/cmp_luasnip", "rafamadriz/friendly-snippets",
 
   -- Copilot & Preview
-  "github/copilot.vim", { "iamcco/markdown-preview.nvim", build = "cd app && npm install" },
   { "vinnymeller/swagger-preview.nvim", build = "npm install -g swagger-ui-watcher" },
 
   -- Telescope (fuzzy finder)
