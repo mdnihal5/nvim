@@ -1,19 +1,17 @@
-require("mason-lspconfig").setup({
-	ensure_installed = { "lua_ls", "ts_ls" }, -- Replace tsserver with ts_ls
-})
-
+-- lsp_config.lua
 local lspconfig = require("lspconfig")
 
+-- LSP Defaults Setup
 local lsp_defaults = lspconfig.util.default_config
 lsp_defaults.capabilities =
 	vim.tbl_deep_extend("force", lsp_defaults.capabilities, require("cmp_nvim_lsp").default_capabilities())
 
 -- Lua LSP setup
-require("lspconfig").lua_ls.setup({
+lspconfig.lua_ls.setup({
 	settings = {
 		Lua = {
 			diagnostics = {
-				globals = { "vim" },
+				globals = { "vim" }, -- Add vim to global diagnostics
 			},
 			workspace = {
 				library = {
@@ -25,11 +23,11 @@ require("lspconfig").lua_ls.setup({
 	},
 })
 
--- TypeScript LSP setup (using ts_ls instead of tsserver)
-require("lspconfig").ts_ls.setup({})
+-- TypeScript LSP setup (with `ts_ls`)
+lspconfig.ts_ls.setup({})
 
--- Tailwind CSS setup (if you use it)
-require("lspconfig").tailwindcss.setup({})
+-- Tailwind CSS LSP setup (if used)
+lspconfig.tailwindcss.setup({})
 
 -- Auto commands for LSP behavior
 vim.api.nvim_create_autocmd("LspAttach", {
@@ -38,7 +36,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		-- Enable completion triggered by <c-x><c-o>
 		vim.bo[ev.buf].omnifunc = "v:lua.vim.lsp.omnifunc"
 
-		-- Buffer local mappings for LSP
+		-- Buffer-local LSP keybindings
 		local opts = { buffer = ev.buf }
 		vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
 		vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)

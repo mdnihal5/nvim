@@ -9,8 +9,14 @@ require("conform").setup({
 		css = { "prettierd", "prettier" },
 		markdown = { "prettierd", "prettier" },
 		yaml = { "prettierd", "prettier" },
-		-- Fallback formatter for all other file types
-		["*"] = { "prettier" }, -- Use Prettier for everything else
+		["*"] = { "prettier" },
 	},
-	format_on_save = true, -- Enable format on save for all file types
+	format_on_save = {
+		-- Explicitly exclude files you don't want to format
+		exclude_filetypes = {
+			"env",
+			"gitignore",
+			"local",
+		},
+	},
 })
