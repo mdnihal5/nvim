@@ -16,6 +16,11 @@ vim.opt.expandtab = true
 
 vim.cmd([[ set noswapfile ]])
 vim.cmd([[ set termguicolors ]])
-
+vim.api.nvim_create_autocmd("BufEnter", {
+	pattern = "*.env",
+	callback = function()
+		vim.b.format_disabled = true
+	end,
+})
 --Line numbers
 vim.wo.number = true

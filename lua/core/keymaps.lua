@@ -30,3 +30,8 @@ end, { desc = "Format current buffer with F3" })
 
 -- Keybinding for Telescope
 vim.api.nvim_set_keymap("n", "<C-f>", ":Telescope find_files<CR>", { noremap = true, silent = true })
+
+-- Manual format trigger
+vim.keymap.set("n", "<leader>f", function()
+	vim.lsp.buf.format({ async = true })
+end, { desc = "Format current buffer" })

@@ -9,12 +9,11 @@ require("conform").setup({
 		css = { "prettierd", "prettier" },
 		markdown = { "prettierd", "prettier" },
 		yaml = { "prettierd", "prettier" },
-		["*"] = { "prettier" },
 	},
 	format_on_save = {
 		-- Explicitly exclude files you don't want to format
 		exclude_filetypes = {
-			"env",
+			".env",
 			"gitignore",
 			"local",
 		},
